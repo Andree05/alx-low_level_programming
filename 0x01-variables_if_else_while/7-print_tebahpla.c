@@ -4,7 +4,7 @@
 
 /**
  *
- *  ** main - Prints the alphabetic in lower and upper case
+ *  * main - Prints the alphabetic in lower and upper case
  *
  *  **
  *
@@ -26,13 +26,13 @@ int main(void)
 
 	}
 
-	for (c = 'A'; c <= 'Z'; c++)
 
-	{
 
-		putchar(c);
 
-	}
+
+
+
+	
 
 	putchar('\n');
 
