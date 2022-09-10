@@ -2,41 +2,23 @@
 
 /**
  *
- *  ** main - Prints combination of numbers
+ *  *  * main - Prints the alphabetic
  *
- *   **
+ *   *   *
  *
- *    ** Return: Always (Success)
+ *    *    * Return: Always (Success)
  *
- *     **/
+ *     *     */
 
 int main(void)
 
 {
 
-	int c, i;
+	char c;
 
-	for (c = '0'; c <= '9'; c++)
+	for (c = 'a'; c <= 'z'; c++)
 
-	{
-
-		for (i = '0'; i <= '9'; i++)
-
-		{
-
-			if (c < i)
-
-			{
-
-				putchar(c);
-
-				putchar(i);
-
-			}
-
-		}
-
-	}
+		putchar(c);
 
 	putchar('\n');
 
