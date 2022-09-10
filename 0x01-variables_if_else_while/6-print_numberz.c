@@ -14,7 +14,7 @@ int main(void)
 
 {
 
-	String c;
+	char c;
 
 	for (c = 'a'; c <= 'z'; c++)
 
@@ -25,5 +25,3 @@ int main(void)
 	return (0);
 
 }
-
-
