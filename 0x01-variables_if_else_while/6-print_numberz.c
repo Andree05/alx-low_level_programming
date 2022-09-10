@@ -1,20 +1,20 @@
 #include <stdio.h>
 
 /**
-*
-*  ** main - Prints the alphabetic
-*
-*  **
-*
-*  ** Return: Always (Success)
-*
-*  **/
+ *
+ *  *  * main - Prints the alphabetic
+ *
+ *   *   *
+ *
+ *    *    * Return: Always (Success)
+ *
+ *     *     */
 
 int main(void)
 
 {
 
-	char c;
+	String c;
 
 	for (c = 'a'; c <= 'z'; c++)
 
