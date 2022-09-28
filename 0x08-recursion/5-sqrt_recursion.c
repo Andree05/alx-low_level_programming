@@ -1,31 +1,31 @@
 #include "main.h"
-#include <stdio.h>
-/**
- * is_prime_number - check if n is a prime number
- * @n: int
- * Return: 0 or 1
- */
-
-
-int is_prime_number(int n)
-{
-	return (check_prime(n, 2));
-}
 
 /**
- * check_prime - check all number < n if they can divide it
+ * _sqrt_recursion - find natural square root
  * @n: int
- * @resp: int
  * Return: int
  */
 
-int check_prime(int n, int resp)
+int _sqrt_recursion(int n)
+{
+	return (square(n, 1));
+}
+
+/**
+ * square - find square root
+ * @n: int to find square root
+ * @val: square root
+ * Return: int
+ */
+
+int square(int n, int val)
 {
 
-	if (resp >= n && n > 1)
-		return (1);
-	else if (n % resp == 0 || n <= 1)
-		return (0);
+	if (val * val == n)
+		return (val);
+	else if (val * val < n)
+		return  (square(n, val + 1));
 	else
-		return (check_prime(n, resp + 1));
+		return (-1);
+
 }
