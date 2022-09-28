@@ -1,51 +1,93 @@
-#include "main.h"
-
-/**
- * last_index - returns the last index of a string (counts the null char)
- * @s: pointer the string
- * Return: int
+#include "main.h"                                                                                                                     
+                                                                                                                                      
+int strlen_no_wilds(char *str);                                                                                                       
+void iterate_wild(char **wildstr);                                                                                                    
+char *postfix_match(char *str, char *postfix);                                                                                        
+int wildcmp(char *s1, char *s2);                                                                                                      
+                                                                                                                                      
+/**                                                                                                                                   
+ * strlen_no_wilds - Returns the length of a string,                                                                                  
+ *                   ignoring wildcard characters.                                                                                    
+ * @str: The string to be measured.                                                                                                   
+ *                                                                                                                                    
+ * Return: The length.                                                                                                                
  */
-
-int last_index(char *s)
-{
-int n = 0;
-
-if (*s > '\0')
-	n += last_index(s + 1) + 1;
-
-return (n);
+int strlen_no_wilds(char *str)                                                                                                        
+{                                                                                                                                     
+        int len = 0, index = 0;                                                                                                       
+                                                                                                                                      
+        if (*(str + index))                                                                                                           
+        {                                                                                                                             
+                if (*str != '*')                                                                                                      
+                        len++;                                                                                                        
+                                                                                                                                      
+                index++;                                                                                                              
+                len += strlen_no_wilds(str + index);                                                                                  
+        }                                                                                                                             
+                                                                                                                                      
+        return (len);                                                                                                                 
+}                                                                                                                                     
+                                                                                                                                      
+/**                                                                                                                                   
+ * iterate_wild - Iterates through a string located at a wildcard                                                                     
+ *                until it points to a non-wildcard character.                                                                        
+ * @wildstr: The string to be iterated through.                                                                                       
+ */                                                                                                                                   
+void iterate_wild(char **wildstr)                                                                                                     
+{                                                                                                                                     
+        if (**wildstr == '*')                                                                                                         
+        {                                                                                                                             
+                (*wildstr)++;                                                                                                         
+                iterate_wild(wildstr);                                                                                                
+        }                                                                                                                             
 }
-
-/**
- * is_palindrome - check if a string is a palindrome
- * @s: string to check
- * Return: 0 or 1
- */
-
-int is_palindrome(char *s)
-{
-int end = last_index(s);
-
-return (check(s, 0, end - 1, end % 2));
+/**                                                                                                                                   
+ * postfix_match - Checks if a string str matches the postfix of                                                                      
+ *                 another string potentially containing wildcards.                                                                   
+ * @str: The string to be matched.                                                                                                    
+ * @postfix: The postfix.                                                                                                             
+ *                                                                                                                                    
+ * Return: If str and postfix are identical - a pointer to the null byte                                                              
+ *                                            located at the end of postfix.                                                          
+ *         Otherwise - a pointer to the first unmatched character in postfix.                                                         
+ */                                                                                                                                   
+char *postfix_match(char *str, char *postfix)                                                                                         
+{                                                                                                                                     
+        int str_len = strlen_no_wilds(str) - 1;                                                                                       
+        int postfix_len = strlen_no_wilds(postfix) - 1;                                                                               
+                                                                                                                                      
+        if (*postfix == '*')                                                                                                          
+                iterate_wild(&postfix);                                                                                               
+                                                                                                                                      
+        if (*(str + str_len - postfix_len) == *postfix && *postfix != '\0')                                                           
+        {                                                                                                                             
+                postfix++;                                                                                                            
+                return (postfix_match(str, postfix));                                                                                 
+        }                                                                                                                             
+                                                                                                                                      
+        return (postfix);                                                                                                             
 }
-
-/**
- * check - checker for the palindrome
- * @s: string
- * @start: int moves from right to left
- * @end: int moves from left to right
- * @pair: int
- * Return: 0 or 1
- */
-
-
-int check(char *s, int start, int end, int pair)
-{
-
-	if ((start == end && pair != 0) || (start == end + 1 && pair == 0))
-		return (1);
-	else if (s[start] != s[end])
-		return (0);
-	else
-		return (check(s, start + 1, end - 1, pair));
+/**                                                                                                                                   
+ * wildcmp - Compares two strings, considering wildcard characters.                                                                   
+ * @s1: The first string to be compared.                                                                                              
+ * @s2: The second string to be compared - may contain wildcards.                                                                     
+ *                                                                                                                                    
+ * Return: If the strings can be considered identical - 1.                                                                            
+ *         Otherwise - 0.                                                                                                             
+ */                                                                                                                                   
+int wildcmp(char *s1, char *s2)                                                                                                       
+{                                                                                                                                     
+        if (*s2 == '*')                                                                                                               
+        {                                                                                                                             
+                iterate_wild(&s2);                                                                                                    
+                s2 = postfix_match(s1, s2);                                                                                           
+        }                                                                                                                             
+                                                                                                                                      
+        if (*s2 == '\0')                                                                                                              
+                return (1);                                                                                                           
+                                                                                                                                      
+        if (*s1 != *s2)                                                                                                               
+                return (0);                                                                                                           
+                                                                                                                                      
+        return (wildcmp(++s1, ++s2));                                                                                                 
 }
