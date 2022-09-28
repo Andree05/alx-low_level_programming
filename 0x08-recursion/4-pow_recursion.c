@@ -1,8 +1,8 @@
 #include "main.h"
 /**
  * _pow_recursion -Returns the value of x rasied to the power of y.
- * x: the power to be raised.
- * y: the power.
+ * @x: the power to be raised.
+ * @y: the power.
  * return: result
  */
 
