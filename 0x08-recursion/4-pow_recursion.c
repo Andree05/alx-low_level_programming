@@ -3,6 +3,7 @@
  * _pow_recursion -Returns the value of x rasied to the power of y.
  * x: the power to be raised.
  * y: the power.
+ * return: result
  */
 
 int _pow_recursion(int x, int y)
